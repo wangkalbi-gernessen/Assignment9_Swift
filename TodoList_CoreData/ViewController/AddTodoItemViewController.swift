@@ -12,7 +12,6 @@ class AddTodoItemViewController: UIViewController {
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var managedTodoItem: ManagedTodoItem?
     
-    
     let titleTextField: UITextField = {
         let title = UITextField()
 //        title.widthAnchor.constraint(equalToConstant: 200).isActive = true
@@ -49,10 +48,7 @@ class AddTodoItemViewController: UIViewController {
         return vStack
     }()
 
-    
-//    weak var delegate: AddEditTodoItemTVCDelegate?
     var todoItem: ManagedTodoItem?
-    
     // create "Done" button
     lazy var doneBtn = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(saveTodoItem))
     
@@ -69,7 +65,6 @@ class AddTodoItemViewController: UIViewController {
         } else {
             title = "Add Todo Item"
         }
-        
         // create "Cancel" button
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelAddTodoItem))
         navigationItem.rightBarButtonItem = doneBtn
@@ -125,6 +120,7 @@ class AddTodoItemViewController: UIViewController {
             managedTodoItem.isCompleted = true
         }
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
         dismiss(animated: true, completion: nil)
     }
     

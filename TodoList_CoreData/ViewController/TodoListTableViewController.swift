@@ -37,6 +37,13 @@ class TodoListTableViewController: UITableViewController, NSFetchedResultsContro
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableView.automaticDimension
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
+        
+    }
+    
+    @objc func loadList(notification: NSNotification){
+        //load data here
+        self.tableView.reloadData()
     }
     
     func getData() {
@@ -159,6 +166,7 @@ class TodoListTableViewController: UITableViewController, NSFetchedResultsContro
         tableView.reloadData()
     }
     
+    // under modifying
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         //        switch sourceIndexPath.section {
         //        case 0:
