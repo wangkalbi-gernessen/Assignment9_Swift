@@ -14,8 +14,8 @@ class AddTodoItemViewController: UIViewController {
     
     let titleTextField: UITextField = {
         let title = UITextField()
-//        title.widthAnchor.constraint(equalToConstant: 200).isActive = true
-//        title.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        title.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        title.heightAnchor.constraint(equalToConstant: 50).isActive = true
         title.borderStyle = .roundedRect
         title.placeholder = "Add new title here"
         return title
@@ -112,7 +112,7 @@ class AddTodoItemViewController: UIViewController {
         if managedTodoItem == nil {
             managedTodoItem = ManagedTodoItem(context: context)
         }
-        
+
         if let managedTodoItem = managedTodoItem {
             managedTodoItem.title = titleTextField.text!
             managedTodoItem.todoDescription = descriptionTextField.text!
@@ -121,7 +121,7 @@ class AddTodoItemViewController: UIViewController {
         }
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     private func updateDoneButtonState() {

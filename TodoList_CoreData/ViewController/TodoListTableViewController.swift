@@ -9,6 +9,31 @@ import UIKit
 import CoreData
 
 class TodoListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+    
+//    func add(_ todoItem: ManagedTodoItem) {
+//        let addTodoItem = AddTodoItemViewController()
+//        addTodoItem.managedTodoItem = ManagedTodoItem(context: addTodoItem.context)
+//
+//        if let managedTodoItem = addTodoItem.managedTodoItem {
+//            managedTodoItem.title = addTodoItem.titleTextField.text
+//            managedTodoItem.todoDescription = addTodoItem.descriptionTextField.text
+//            managedTodoItem.priorityNumber = Int16(addTodoItem.segmentedControl.selectedSegmentIndex)
+//            managedTodoItem.isCompleted = true
+//        }
+//        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+//    }
+//
+//    func edit(_ todoItem: ManagedTodoItem) {
+//        let addTodoItem = AddTodoItemViewController()
+//        if let managedTodoItem = addTodoItem.managedTodoItem {
+//            managedTodoItem.title = addTodoItem.titleTextField.text
+//            managedTodoItem.todoDescription = addTodoItem.descriptionTextField.text
+//            managedTodoItem.priorityNumber = Int16(addTodoItem.segmentedControl.selectedSegmentIndex)
+//            managedTodoItem.isCompleted = true
+//        }
+//        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+//    }
+
     // create empty array for todoItem
     var todoItems: [ManagedTodoItem] = []
     var todoItemsToShow: [String: [ManagedTodoItem]] = ["High Priority":[],"Medium Priority":[],"Low Priority":[]]
@@ -38,10 +63,10 @@ class TodoListTableViewController: UITableViewController, NSFetchedResultsContro
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableView.automaticDimension
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
-        
     }
     
     @objc func loadList(notification: NSNotification){
+        getData()
         //load data here
         self.tableView.reloadData()
     }
@@ -80,7 +105,7 @@ class TodoListTableViewController: UITableViewController, NSFetchedResultsContro
     
     @objc func goToAddTodoItemScreen() {
         let addTodoItemTVC = AddTodoItemViewController()
-        //        addTodoItemTVC.delegate = self
+//        addTodoItemTVC.delegate = self
         let addTodoItemNC = UINavigationController(rootViewController: addTodoItemTVC)
         self.present(addTodoItemNC, animated: true, completion: nil)
     }
@@ -120,6 +145,7 @@ class TodoListTableViewController: UITableViewController, NSFetchedResultsContro
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let addTodoItem = AddTodoItemViewController()
+//        addTodoItem.delegate = self
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         addTodoItem.context = context
         // get title and priorityNumber you want to edit
